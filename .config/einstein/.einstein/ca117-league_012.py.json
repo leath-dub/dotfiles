@@ -1,0 +1,7 @@
+#test-report ca117 ogradc23 league_012.py test0 passed
+#test-report ca117 ogradc23 league_012.py ./test01/ passed
+#test-report ca117 ogradc23 league_012.py ./test02/ passed
+#test-report ca117 ogradc23 league_012.py ./test03/ passed
+#test-report ca117 ogradc23 league_012.py ./test04/ passed
+#test-report ca117 ogradc23 league_012.py ./../module-wide/verify/ passed
+#test-report-overall ca117 ogradc23 league_012.py correct passed 6 of 6

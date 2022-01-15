@@ -1,0 +1,5 @@
+#test-report ca117 ogradc23 poetry_012.py test0 passed
+#test-report ca117 ogradc23 poetry_012.py ./test01/ passed
+#test-report ca117 ogradc23 poetry_012.py ./test02/ passed
+#test-report ca117 ogradc23 poetry_012.py ./../module-wide/verify/ passed
+#test-report-overall ca117 ogradc23 poetry_012.py correct passed 4 of 4
