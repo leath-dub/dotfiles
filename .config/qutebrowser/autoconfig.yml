@@ -6,5 +6,5 @@
 
 config_version: 2
 settings:
-  scrolling.smooth:
+  content.javascript.can_access_clipboard:
     global: true

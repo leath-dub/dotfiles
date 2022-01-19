@@ -1,4 +1,4 @@
-set number 
+set rnu
 set nowrap
 set smartindent
 set shiftwidth=4
@@ -22,11 +22,10 @@ set linebreak
 set fillchars+=eob:\
 set nocompatible
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('$HOME/.config/nvim/plugged')
 
 Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdtree'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'dylanaraps/wal.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'elkowar/yuck.vim'
@@ -50,3 +49,9 @@ let g:lightline = {
       \ 'colorscheme': 'wal',
       \ }
 set foldmethod=marker
+imap <C-s> #!/usr/bin/env python3<esc>o<return>
+imap <C-l> ""<left>
+" Word count
+" command wc "set statusline+=%{wordcount().words}\ words"
+" Spellcheck in markdown files
+autocmd BufNewFile,BufRead *.mkd,*.md,*.mdown,*.markdown set spell

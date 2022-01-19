@@ -1,7 +1,7 @@
 #!/bin/sh
 
 /home/$USER/.local/bin/wal -R &
-xfce4-power-manager &
+#xfce4-power-manager &
 picom --config ~/.config/picom/picom.conf &
 bar &
 /home/cathal/.scripts/wall
