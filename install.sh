@@ -41,12 +41,15 @@ partition()
 #linux-firmware networkmanager 
 ## install pkgs
 #sudo pacman --noconfirm --needed -S patch libxinerama libxft libtool libev xorg
-#xorg-utils alsa-utils curl dhcpd dialog exa feh ffmpeg
+# alsa-utils curl dhclient dialog exa feh ffmpeg
 #linux-firmware gcc git htop iwd maim make mp3 neofetch neovim
-#pandoc pcmanfm pulseaudio python-pip qutebrowser ranger ssh
-#texlive vlc w3m wget brightnessctl zathura zsh
-#zsh-syntax-highlighting rustup scim
+#pandoc pcmanfm pulseaudio python-pip qutebrowser ranger openssh
+#texlive vlc w3m wget brightnessctl zathura zsh xorg-xinit neovim
+#zsh-syntax-highlighting rustup
 #
+## vim-plug
+#sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+#       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ## paru AUR helper 
 #mkdir $HOME/.sources
 #cd $HOME/.sources
@@ -60,7 +63,7 @@ partition()
 #xf86-video-amdgpu
 
 ## font
-#wget https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/JetBrainsMono/NoLigatures/Regular/complete/JetBrains\ Mono\ Regular\ NL\ Nerd\ Font\ Complete.ttf
+#wget https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/JetBrainsMono/NoLigatures/Regular/complete/JetBrains\ Mono\ NL\ Nerd\ Font\ Complete.ttf
 ## Above font is named JetBrainsMono Nerd Font
 
 ## Sources
