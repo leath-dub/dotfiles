@@ -55,3 +55,4 @@ imap <C-l> ""<left>
 " command wc "set statusline+=%{wordcount().words}\ words"
 " Spellcheck in markdown files
 autocmd BufNewFile,BufRead *.mkd,*.md,*.mdown,*.markdown set spell
+autocmd BufRead,BufNewFile *.ms,*.me,*.mom set filetype=groff
