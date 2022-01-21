@@ -34,7 +34,13 @@ TRAPWINCH() {
 # export ps1="\e[0;31m┌──\e[1;32m[\u@\h]\e[0;31m─\e[0;36m[\d{%d %b} \a]\e[0;31m─\e[0;33m[\w]\n\e[0;31m└──╼ \e[1;36m\$\[$(tput sgr0)\] "
 
 # syntax highlighting plugin
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -a /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]
+then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ -a /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]
+then
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # Good Tab completion
 autoload -U compinit
