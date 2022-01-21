@@ -63,7 +63,7 @@ partition()
 #xf86-video-amdgpu
 
 ## font
-#wget https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/JetBrainsMono/NoLigatures/Regular/complete/JetBrains\ Mono\ NL\ Nerd\ Font\ Complete.ttf
+#wget https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/JetBrainsMono/NoLigatures/Regular/complete/JetBrains\ Mono\ NL\ Regular\ Nerd\ Font\ Complete.ttf
 ## Above font is named JetBrainsMono Nerd Font
 
 ## Sources
