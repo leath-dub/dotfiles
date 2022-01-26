@@ -123,7 +123,10 @@ read -p "Pick user's shell: " $usershell
 # cd Top-5-Bootloader-Themes
 # ./install.sh
 
-
+# Change /etc/default/keyboard
+#```
+#XKBOPTIONS="caps:swapescape"
+#```
 #partition
 
 

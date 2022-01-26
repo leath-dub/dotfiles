@@ -83,10 +83,10 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Neofetch
 #neofetch --ascii_distro Pikachu
-if [[ "$(tput cols)" -gt 61 ]]
-then
-    fm6000 -de dwm -f /home/$USER/.dev/ascii/pika_fm6000
-fi
+#if [[ "$(tput cols)" -gt 61 ]]
+#then
+#    fm6000 -de dwm -f /home/$USER/.dev/ascii/pika_fm6000
+#fi
 #fm6000 -de dwm -f /home/$USER/ascii/skull
 #~/fetch
 
@@ -100,4 +100,3 @@ alias reboot="systemctl reboot"
 alias ls="exa --icons"
 alias cdpy="cd $HOME/comsci/1/2_sem/modules/ca117/"
 alias cdco="cd $HOME/comsci/1/2_sem/modules/"
-
