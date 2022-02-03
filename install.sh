@@ -37,6 +37,7 @@ partition()
         fi
     done
 }
+
 getcred ()
 {
     username=$(\
@@ -61,17 +62,34 @@ getshell ()
         3>&1 1>&2 2>&3 3>&- \
     )
 }
-## pacastrap in live iso core pkgs for network
-#pacstrap /mnt grub wireless_tools net_tools dhclient
-#neovim iwd networkmanager base base-devel linux
-#linux-firmware networkmanager 
+
+## Preinstall stuff
+
+preinstall ()
+{
+    if nc -zw1 google.com 443
+    then
+        echo "Network Good!"
+    else
+        dialog --backtitle "Network" --title "No Network\!" --msgbox "Try using iwd or wpa_supplicant to connect to wifi" 7 30
+        break
+    fi
+    timedatectl set-ntp true
+}
+
+
+
+
+
+
 ## install pkgs
-#sudo pacman --noconfirm --needed -S patch libxinerama libxft libtool libev xorg
-# alsa-utils curl dhclient dialog exa feh ffmpeg
-#linux-firmware gcc git htop iwd maim make neofetch neovim
-#pandoc pcmanfm pulseaudio python-pip qutebrowser ranger openssh
-#texlive vlc w3m wget curl brightnessctl zathura zsh xorg-xinit noto-fonts
-#zsh-syntax-highlighting rustup tlp
+# pacstrap /mnt  grub wireless_tools net_tools dhclient neovim iwd networkmanager \
+# base base-devel linux linux-firmware networkmanager patch libxinerama libxft \
+# libtool libev xorg alsa-utils curl dhclient dialog exa feh ffmpeg \
+# linux-firmware gcc git htop iwd maim make neofetch neovim pandoc pcmanfm \
+# pulseaudio python-pip qutebrowser ranger openssh texlive vlc w3m wget curl \
+# brightnessctl zathura zsh xorg-xinit noto-fonts zsh-syntax-highlighting rustup \
+# tlp neomutt \
 #
 # mkdir .local
 # mkdir .local/share
