@@ -30,13 +30,14 @@ Plug 'preservim/nerdtree'
 Plug 'dylanaraps/wal.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'elkowar/yuck.vim' 
-Plug 'voldikss/vim-floaterm'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
 "colorscheme wal
+syntax enable
+let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
-set cursorline
 set background=dark
 set mouse=a
 
@@ -48,7 +49,7 @@ highlight SpellLocal cterm=Underline ctermbg=NONE
 " statusline with lightline
 set laststatus=2
 let g:lightline = {
-\ 'colorscheme': 'wal',
+\ 'colorscheme': 'gruvbox',
 \ }
 set foldmethod=marker
 imap <C-s> #!/usr/bin/env python3<esc>o<return>
@@ -56,7 +57,7 @@ imap <C-s> #!/usr/bin/env python3<esc>o<return>
 "imap <C-y> ''<left>
 "imap <C-l> []<left>
 "imap <C-o> ()<left>
-nmap <C-y> :FloatermNew --height=0.6 --width=0.8 --wintype=float --position=bottomright<return>
+nmap <C-l> :w<return> :!groff -e -G % -ms -Tpdf > %.pdf<return><return>
 "inoremap " ""<left>
 "inoremap ' ''<left>
 "inoremap ( ()<left>

@@ -9,31 +9,57 @@ partition()
     else
         BIOST="bios"
     fi
-    frmt=0 # format true/false 1/0
-    echo "Using "$BIOST" bios"
-    lsblk
-    while [ "$frmt" = 0 ]
-    do
-        read -p "Write the path of the disk to be partitioned(e.g /dev/sda): " disk
-        ispath=$(echo $disk | sed 's/\/dev\/.*//g')
-        if [ -z "$ispath" -a -n "$disk" ] # -a -n $(echo $disk | sed 's/\/*//g') -a -n "$disk" ]
+    dialog --backtitle "Parition the disk" --title "Bios info:" --msgbox "Using $BIOST bios" 5 30
+    disk=""
+    while true; do
+        disk=$(\
+            dialog --backtitle "Partition the disk" \
+                   --title "Choose a disk:" \
+                   --inputbox "$(lsblk)" 0 0 \
+            3>&1 1>&2 2>&3 3>&- \
+        )
+        if [ -e $disk -a "$disk" != "" ]
         then
-            frmt=1
-            echo "Format correct"
+            confirm=$(dialog --backtitle "Partition the disk" --title "Confirm" --inputbox "Are you sure you want to install on $disk ? yes/No" 0 0 3>&1 1>&2 2>&3 3>&-)
+            case $confirm in
+                "Yes")
+                    break
+                    ;;
+                "yes")
+                    break
+                    ;;
+                *)
+                    echo ""
+                    ;;
+            esac
         else
-            echo "Format incorrect"
-            read -p "Enter r: retry e: exit : " input
-            if [ "$input" = "r" ]
-            then
-                echo ""
-            elif [ "$input" = "e" ]
-            then
-                exit
-            else
-                echo ""
-            fi
+            dialog --backtitle "ERROR" --title "Device not found!" --msgbox "Make sure input is of form /dev/[DEVICE]" 10 40
         fi
     done
+}
+getcred ()
+{
+    username=$(\
+        dialog --form "Enter your username:" 0 0 0 \
+                      "Username:" 0 0 \
+                      "" 0 12 12 100 \
+        3>&1 1>&2 2>&3 3>&- \
+    )
+    userpass=$(\
+        dialog --insecure \
+               --passwordbox "Enter password:" 0 0 \
+        3>&1 1>&2 2>&3 3>&- \
+    )
+}
+
+getshell ()
+{
+    usershell=$(\
+        dialog --backtitle "Install" \
+               --title "Choose a shell" \
+               --inputbox "$(cat /etc/shells)" 0 0 \
+        3>&1 1>&2 2>&3 3>&- \
+    )
 }
 ## pacastrap in live iso core pkgs for network
 #pacstrap /mnt grub wireless_tools net_tools dhclient
@@ -64,12 +90,12 @@ partition()
 #paru
 #paru -S picom-git
 
-## add user
-read -p "Enter a user name: " $username
-chsh -l
-read -p "Pick user's shell: " $usershell
+#   printf "Pick user's shell: "
+#   #chsh -l
+
+#read usershell
 # useradd -m -g wheel -s $usershell $username 
-# passwd $username
+# (echo $userpass; echo $userpass) | passwd $username
 # nvim /etc/sudoers
 
 ## graphics card specifics
@@ -127,7 +153,6 @@ read -p "Pick user's shell: " $usershell
 #```
 #XKBOPTIONS="caps:swapescape"
 #```
-#partition
-
-
-
+getshell
+partition
+getcred
