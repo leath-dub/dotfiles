@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # partitioning 
+swappt="2GB"
 partition() 
 {
     if [ -d /sys/firmware/efi ]
@@ -8,6 +9,8 @@ partition()
         BIOST="uefi"
     else
         BIOST="bios"
+        dialog --backtitle "partition the disk" --title "Bios info:" --msgbox "Sorry this script does not support bios :(" 0 0
+        break
     fi
     dialog --backtitle "Parition the disk" --title "Bios info:" --msgbox "Using $BIOST bios" 5 30
     disk=""
@@ -18,14 +21,67 @@ partition()
                    --inputbox "$(lsblk)" 0 0 \
             3>&1 1>&2 2>&3 3>&- \
         )
-        if [ -e $disk -a "$disk" != "" ]
+        if [ -e $disk -a "$disk" != "" -a "$disk" != "/dev/" -a "$disk" != "/dev" ]
         then
             confirm=$(dialog --backtitle "Partition the disk" --title "Confirm" --inputbox "Are you sure you want to install on $disk ? yes/No" 0 0 3>&1 1>&2 2>&3 3>&-)
             case $confirm in
-                "Yes")
-                    break
-                    ;;
                 "yes")
+                    rootpt=$(fdisk -l | grep $disk: | awk '{print $3 * 0.12}')
+                    rootpt=$(printf %.0f $(echo "$rootpt" | bc -l))
+                    dialog --msgbox "$rootpt" 0 0
+                    warnpt=$(\
+                        dialog --backtitle "Partition the disk" \
+                               --title "Confirm" \
+                               --inputbox "Warning, about to partition the $disk, all data will be lost, continue yes/No" 0 0 \
+                        3>&1 1>&2 2>&3 3>&- \
+                    )
+                    ## danger actual partition section
+                    # case $warnpt in
+                    #     "yes")
+                    #         (
+                    #           echo g; 
+                    #           echo n;
+                    #           echo ;
+                    #           echo ;
+                    #           echo +1GB;
+                    #           echo n;
+                    #           echo ;
+                    #           echo ;
+                    #           echo "+"$rootpt"GB";
+                    #           echo n;
+                    #           echo ;
+                    #           echo ;
+                    #           echo +2GB;
+                    #           echo n;
+                    #           echo ;
+                    #           echo ;
+                    #           echo ;
+                    #           echo t;
+                    #           echo 1;
+                    #           echo 1;
+                    #           echo t;
+                    #           echo 3;
+                    #           echo 19;
+                    #           echo w;
+                    #         ) | fdisk $disk
+                    #         mkfs.fat -F32 $disk*1
+                    #         mkswap $disk*3
+                    #         swapon $disk*3
+                    #         mkfs.ext4 $disk*2
+                    #         mkfs.ext4 $disk*4
+                    #         mkdir /mnt/boot
+                    #         mkdir /mnt/home
+                    #         mount $disk*2 /mnt
+                    #         mount $disk*4 /mnt/home
+                    #         mount $disk*1 /mnt/boot
+                    #         genfstab -U /mnt >> /mnt/etc/fstab
+                    #         dialog --backtitle "Partition the disk" --title "Done" --msgbox "Finsished partitioning" 0 0
+                    #         break
+                    #         ;;
+                    #     *)
+                    #      break
+                    #      ;;
+                    # esac
                     break
                     ;;
                 *)
@@ -36,6 +92,7 @@ partition()
             dialog --backtitle "ERROR" --title "Device not found!" --msgbox "Make sure input is of form /dev/[DEVICE]" 10 40
         fi
     done
+
 }
 
 getcred ()
@@ -83,13 +140,16 @@ preinstall ()
 
 
 ## install pkgs
-# pacstrap /mnt  grub wireless_tools net_tools dhclient neovim iwd networkmanager \
-# base base-devel linux linux-firmware networkmanager patch libxinerama libxft \
-# libtool libev xorg alsa-utils curl dhclient dialog exa feh ffmpeg \
-# linux-firmware gcc git htop iwd maim make neofetch neovim pandoc pcmanfm \
-# pulseaudio python-pip qutebrowser ranger openssh texlive vlc w3m wget curl \
-# brightnessctl zathura zsh xorg-xinit noto-fonts zsh-syntax-highlighting rustup \
-# tlp neomutt \
+getpkgs ()
+{
+  pacstrap /mnt  grub wireless_tools dhclient neovim iwd networkmanager base base-devel linux linux-firmware networkmanager patch libxinerama libxft libtool libev xorg alsa-utils curl dhclient dialog exa feh ffmpeg linux-firmware gcc git htop iwd maim make neofetch neovim pandoc pcmanfm pulseaudio python-pip qutebrowser ranger openssh vlc w3m wget curl brightnessctl zathura zsh xorg-xinit noto-fonts zsh-syntax-highlighting rustup tlp neomutt
+}
+
+postinstall ()
+{
+    ln -sf /mnt/usr/share/zoneinfo/Eire /mnt/etc/localtime
+    
+}
 #
 # mkdir .local
 # mkdir .local/share
