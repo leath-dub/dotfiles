@@ -58,6 +58,7 @@ imap <C-s> #!/usr/bin/env python3<esc>o<return>
 "imap <C-l> []<left>
 "imap <C-o> ()<left>
 nmap <C-l> :w<return> :!groff -e -G % -ms -Tpdf > %.pdf<return><return>
+nmap <C-k> :w<return> :!gcc %;./a.out<return>
 "inoremap " ""<left>
 "inoremap ' ''<left>
 "inoremap ( ()<left>

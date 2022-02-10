@@ -69,10 +69,10 @@ partition()
                     #         swapon $disk*3
                     #         mkfs.ext4 $disk*2
                     #         mkfs.ext4 $disk*4
-                    #         mkdir /mnt/boot
-                    #         mkdir /mnt/home
                     #         mount $disk*2 /mnt
+                    #         mkdir /mnt/home
                     #         mount $disk*4 /mnt/home
+                    #         mkdir /mnt/boot
                     #         mount $disk*1 /mnt/boot
                     #         genfstab -U /mnt >> /mnt/etc/fstab
                     #         dialog --backtitle "Partition the disk" --title "Done" --msgbox "Finsished partitioning" 0 0
@@ -148,7 +148,7 @@ getpkgs ()
 postinstall ()
 {
     ln -sf /mnt/usr/share/zoneinfo/Eire /mnt/etc/localtime
-    
+    cat /mnt/etc/locale.gen | grep en_IE | sed 's/^.//g' >> /mnt/etc/locale.gen
 }
 #
 # mkdir .local
