@@ -1,4 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =2
-let g:netrw_dirhist_2='/usr/share/fonts/type1'
-let g:netrw_dirhist_1='/usr/share/fonts/opentype'
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/cathal/comsci/1/2_sem/modules/templateposter/css'
+let g:netrw_dirhist_0='/home/cathal/.dev/my_website/css'
+let g:netrw_dirhist_9='/home/cathal/.dev/my_website'
+let g:netrw_dirhist_8='/home/cathal/.dev'
+let g:netrw_dirhist_7='/home/cathal'
+let g:netrw_dirhist_6='/home/cathal/comsci'
+let g:netrw_dirhist_5='/home/cathal/comsci/1'
+let g:netrw_dirhist_4='/home/cathal/comsci/1/2_sem'
+let g:netrw_dirhist_3='/home/cathal/comsci/1/2_sem/modules'
+let g:netrw_dirhist_2='/home/cathal/comsci/1/2_sem/modules/templateposter'

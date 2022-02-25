@@ -29,7 +29,7 @@ Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdtree'
 Plug 'dylanaraps/wal.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'elkowar/yuck.vim' 
+Plug 'elkowar/yuck.vim'
 Plug 'junegunn/goyo.vim'
 
 call plug#end()
@@ -53,20 +53,19 @@ let g:lightline = {
 \ }
 set foldmethod=marker
 imap <C-s> #!/usr/bin/env python3<esc>o<return>
-"imap <C-k> ""<left>
-"imap <C-y> ''<left>
-"imap <C-l> []<left>
-"imap <C-o> ()<left>
 nmap <C-l> :w<return> :!groff -e -G % -ms -Tpdf > %.pdf<return><return>
 nmap <C-k> :w<return> :!gcc %;./a.out<return>
-"inoremap " ""<left>
-"inoremap ' ''<left>
-"inoremap ( ()<left>
-"inoremap [ []<left>
-"inoremap { {}<left>
 
 " Word count
 " command wc "set statusline+=%{wordcount().words}\ words"
 " Spellcheck in markdown files
 autocmd BufNewFile,BufRead *.mkd,*.md,*.mdown,*.markdown set spell
 autocmd BufRead,BufNewFile *.ms,*.me,*.mom set filetype=groff
+autocmd BufNewFile,BufRead *.html set tabstop=2
+autocmd BufNewFile,BufRead *.html set shiftwidth=2
+autocmd BufNewFile,BufRead *.css set tabstop=4
+autocmd BufNewFile,BufRead *.css set shiftwidth=4
+autocmd BufNewFile,BufRead *.ms set spell
+" adds "·" for space chars
+set lcs+=space:·
+set list
