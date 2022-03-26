@@ -6,4 +6,5 @@ picom --config ~/.config/picom/picom.conf &
 dwmblocks &
 dunst &
 /home/cathal/.dev/bin/wall
+# xinput --set-prop "pointer:Ploopy Corporation Trackball Mini" "libinput Accel Speed" -1.0
 while type dwm >/dev/null ; do dwm && continue || break ; done

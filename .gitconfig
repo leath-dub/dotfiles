@@ -1,3 +1,5 @@
 [user]
 	email = 77889270+leath-dub@users.noreply.github.com
 	name = leath-dub
+[core]
+	editor = nvim

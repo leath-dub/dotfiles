@@ -31,6 +31,9 @@ Plug 'dylanaraps/wal.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'elkowar/yuck.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'ap/vim-css-color'
+Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -56,6 +59,10 @@ imap <C-s> #!/usr/bin/env python3<esc>o<return>
 nmap <C-l> :w<return> :!groff -e -G % -ms -Tpdf > %.pdf<return><return>
 nmap <C-k> :w<return> :!gcc %;./a.out<return>
 
+" Emmet shorcuts
+let g:user_emmet_mode="n"
+let g:user_emmet_leader_key=","
+
 " Word count
 " command wc "set statusline+=%{wordcount().words}\ words"
 " Spellcheck in markdown files
@@ -67,5 +74,6 @@ autocmd BufNewFile,BufRead *.css set tabstop=4
 autocmd BufNewFile,BufRead *.css set shiftwidth=4
 autocmd BufNewFile,BufRead *.ms set spell
 " adds "·" for space chars
+" eol:¬
 set lcs+=space:·
 set list
