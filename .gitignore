@@ -1,4 +1,11 @@
-tdm/
-retroarch/
-zoomus.conf
-Unknown\ Organization/
+*
+!README.md
+!install.sh
+!.config/einstein/*
+!.config/neofetch/*
+!.config/nvim/*
+!.config/picom/*
+!.config/qutebrowser/*
+!.config/ranger/*
+!.config/stat/*
+!.config/zsh/*

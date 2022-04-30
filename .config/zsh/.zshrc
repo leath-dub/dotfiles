@@ -3,7 +3,13 @@ autoload -U colors && colors
 
 # Load version control information
 autoload -Uz vcs_info
-precmd() { vcs_info }
+# precmd() { vcs_info }
+precmd() {
+    # stderr is produced "fatal: this operation must be run in a work tree"
+    # this happens when "vcs_info" is run in .git dir. This can be ignored
+    # safely
+    vcs_info 2> /dev/null
+}
 
 # Format the vcs_info_msg_0_ variable
 zstyle ':vcs_info:git:*' formats "%b %u %c"
@@ -33,7 +39,7 @@ TRAPWINCH() {
 # bash equivlant
 # export ps1="\e[0;31m┌──\e[1;32m[\u@\h]\e[0;31m─\e[0;36m[\d{%d %b} \a]\e[0;31m─\e[0;33m[\w]\n\e[0;31m└──╼ \e[1;36m\$\[$(tput sgr0)\] "
 
-# syntax highlighting plugin
+# Plugins
 if [[ -a /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]
 then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -41,6 +47,21 @@ elif [[ -a /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlightin
 then
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+if [[ -a /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]
+then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+setopt RE_MATCH_PCRE
+setopt INTERACTIVE_COMMENTS
+
+# Show hue values cmd - "for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done"
+typeset -A ZSH_HIGHLIGHT_STYLES
+typeset -A ZSH_HIGHLIGHT_PATTERNS
+typeset -A ZSH_HIGHLIGHT_REGEXP
+# fish shell like colours
+source $ZDOTDIR/syntax-theme/gruvbox.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=238"
 
 # Good Tab completion
 autoload -U compinit
@@ -81,17 +102,6 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# Neofetch
-#neofetch --ascii_distro Pikachu
-#if [[ "$(tput cols)" -gt 61 ]]
-#then
-#    fm6000 -de dwm -f /home/$USER/.dev/ascii/pika_fm6000
-#fi
-#fm6000 -de dwm -f /home/$USER/ascii/skull
-#~/fetch
-
-# Pywal tty 
-# sh -c $HOME/.cache/wal/colors-tty.sh
 if [ "$TERM" = "linux" ]
 then
     echo -en "\e]P0222222" #black
