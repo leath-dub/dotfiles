@@ -1,6 +1,8 @@
 *
 !README.md
 !install.sh
+!.config
+!.config/*
 !.config/einstein/*
 !.config/neofetch/*
 !.config/nvim/*
