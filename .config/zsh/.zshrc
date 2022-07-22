@@ -27,13 +27,13 @@ _git_prompt() {
 }
 
 # Zsh prompt
-(( COLUMNS < 40 )) && PROMPT="%{$fg[red]%}┌──%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}"$'\n'"%{$fg[red]%}└──╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}' 
-(( COLUMNS > 40 )) && PROMPT="%{$fg[red]%}┌──%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}─"$'%{\e[36m%}[$(_git_prompt)]%{\e[0m%}'"%{$fg[red]%}─%{$fg[yellow]%}[%(5~|%-1~/…/%3~|%4~)]"$'\n'"%{$fg[red]%}└──╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}'
+(( COLUMNS < 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}' 
+(( COLUMNS > 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}─"$'%{\e[36m%}[$(_git_prompt)]%{\e[0m%}'"%{$fg[red]%}─%{$fg[yellow]%}[%(5~|%-1~/…/%3~|%4~)]"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}'
 (( COLUMNS < 20 )) && PROMPT="%{$fg[red]%}❭ %B%F{51}"$'%{\e[0m%}'
 # Catching SIGWINCH signal and updating prompt
 TRAPWINCH() { 
-    (( COLUMNS < 40 )) && PROMPT="%{$fg[red]%}┌──%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}"$'\n'"%{$fg[red]%}└──╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}' 
-    (( COLUMNS > 39 )) && PROMPT="%{$fg[red]%}┌──%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}─"$'%{\e[36m%}[$(_git_prompt)]%{\e[0m%}'"%{$fg[red]%}─%{$fg[yellow]%}[%(5~|%-1~/…/%3~|%4~)]"$'\n'"%{$fg[red]%}└──╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}'
+    (( COLUMNS < 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}' 
+    (( COLUMNS > 39 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}─"$'%{\e[36m%}[$(_git_prompt)]%{\e[0m%}'"%{$fg[red]%}─%{$fg[yellow]%}[%(5~|%-1~/…/%3~|%4~)]"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}'
     (( COLUMNS < 20 )) && PROMPT="%{$fg[red]%}❭ %B%F{51}"$'%{\e[0m%}'
 }
 # bash equivlant

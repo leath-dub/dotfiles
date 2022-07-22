@@ -67,7 +67,6 @@ let g:lightline = {
 set foldmethod=marker
 imap <C-s> #!/usr/bin/env python3<esc>o<return>
 nmap <C-l> :w<return> :!groff -e -G % -ms -Tpdf > %.pdf<return><return>
-nmap <C-k> :w<return> :!gcc %;./a.out<return>
 set colorcolumn=80
 "}}}
 
@@ -103,8 +102,8 @@ tmap <Esc> <C-\><C-n>
 "}}}
 
 " bindings {{{
-map <silent> <leader>s :w<CR>
 map <silent> <leader>rc :e $MYVIMRC<CR>
+map <silent> <c-s> :w<CR>
 " fzf
 map <silent> <leader>/ :Files<CR>
 " smooth scrolling
