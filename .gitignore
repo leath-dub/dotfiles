@@ -2,7 +2,7 @@
 !README.md
 !install.sh
 !.config
-!.config/*
+.config/*
 !.config/einstein/*
 !.config/neofetch/*
 !.config/nvim/*
@@ -11,3 +11,5 @@
 !.config/ranger/*
 !.config/stat/*
 !.config/zsh/*
+.config/zsh/syntax-theme/
+!.config/zsh/syntax-theme/*
