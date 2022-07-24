@@ -1,0 +1,5 @@
+#test-report ca117 ogradc23 hotel_051.py test0 passed
+#test-report ca117 ogradc23 hotel_051.py ./test01/ passed
+#test-report ca117 ogradc23 hotel_051.py ./test02/ failed
+#test-report ca117 ogradc23 hotel_051.py ./../module-wide/verify/ passed
+#test-report-overall ca117 ogradc23 hotel_051.py incorrect passed 3 of 4

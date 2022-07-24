@@ -1,0 +1,23 @@
+#test-report ca117 ogradc23 wordcalc_122.py test0 passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test01/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test02/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test03/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test04/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test05/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test06/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test07/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test08/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test09/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test10/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test11/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test12/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test13/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test14/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test15/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test16/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test17/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test18/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test19/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./test20/ passed
+#test-report ca117 ogradc23 wordcalc_122.py ./../module-wide/verify/ passed
+#test-report-overall ca117 ogradc23 wordcalc_122.py correct passed 22 of 22
