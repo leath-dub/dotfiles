@@ -1,4 +1,4 @@
-" General settings{{{
+" Settings {{{
 set nu
 set relativenumber
 set nowrap
@@ -28,54 +28,81 @@ set nocompatible
 " extra padding on right of numbers
 set signcolumn=yes
 " split on right
-set splitright "}}}
+set splitright
 
-" Vim Plug{{{
-call plug#begin('$HOME/.config/nvim/plugged')
-
-" colour schemes
-Plug 'gruvbox-community/gruvbox'
-Plug 'tomasiser/vim-code-dark'
-
-Plug 'itchyny/lightline.vim'
-Plug 'rust-lang/rust.vim'
-Plug 'ap/vim-css-color'
-Plug 'mattn/emmet-vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'fmoralesc/vim-tutor-mode'
-Plug 'terryma/vim-smooth-scroll'
-
-call plug#end() "}}}
-
-" Themeing{{{
-syntax enable
-let g:gruvbox_contrast_dark = 'soft'
-colorscheme gruvbox
 set background=dark
-set enc=utf-8 "}}}
+set laststatus=2
+set foldmethod=marker
+set colorcolumn=80
+" adds "·" for space chars
+" eol:¬
+set lcs+=space:·
+set list
+" }}}
 
-" STYLING{{{
+" Plugins {{{
+if !empty(glob('~/.config/nvim/plugged'))
+    call plug#begin('$HOME/.config/nvim/plugged')
+
+    Plug 'gruvbox-community/gruvbox'
+    Plug 'tomasiser/vim-code-dark'
+    Plug 'itchyny/lightline.vim'
+    Plug 'rust-lang/rust.vim'
+    Plug 'ap/vim-css-color'
+    Plug 'mattn/emmet-vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    Plug 'fmoralesc/vim-tutor-mode'
+    Plug 'terryma/vim-smooth-scroll'
+
+    call plug#end()
+
+    " Emmet shorcuts
+    let g:user_emmet_mode="n"
+    let g:user_emmet_leader_key=","
+
+    " smooth scrolling
+    noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
+    noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
+    noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
+    noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
+    " fzf
+    map <silent> <leader>/ :Files<CR>
+
+    syntax enable
+    let g:gruvbox_contrast_dark = 'soft'
+    colorscheme gruvbox
+
+    let g:lightline = {
+    \ 'colorscheme': 'gruvbox',
+    \ }
+endif
+" }}}
+
+" Styling {{{
 highlight Comment cterm=italic
 highlight SpellLocal cterm=Underline ctermbg=NONE
 hi Search cterm=NONE ctermfg=red ctermbg=black
 hi IncSearch cterm=NONE ctermfg=red ctermbg=black
-set laststatus=2
-let g:lightline = {
-\ 'colorscheme': 'gruvbox',
-\ }
-set foldmethod=marker
+" }}}
+
+" Keybinding {{{
+let mapleader = "\<BS>"
+
+if executable('zsh')
+    nmap <silent> <leader>a :below split term://zsh<return>i
+endif
+tmap <silent> <leader>a <C-\><C-n><C-w>q
+tmap <Esc> <C-\><C-n>
+
+map <silent> <leader>rc :e $MYVIMRC<CR>
+map <silent> <c-s> :w<CR>
+
 imap <C-s> #!/usr/bin/env python3<esc>o<return>
 nmap <C-l> :w<return> :!groff -e -G % -ms -Tpdf > %.pdf<return><return>
-set colorcolumn=80
-"}}}
+" }}}
 
-" Emmet shorcuts{{{
-let g:user_emmet_mode="n"
-let g:user_emmet_leader_key=","
-"}}}
-
-" Spellcheck in markdown files{{{
+" Filetype specific autocmds {{{
 autocmd BufNewFile,BufRead *.mkd,*.md,*.mdown,*.markdown set spell
 autocmd BufRead,BufNewFile *.ms,*.me,*.mom set filetype=groff
 autocmd BufNewFile,BufRead *.html set tabstop=2
@@ -85,30 +112,4 @@ autocmd BufNewFile,BufRead *.css set shiftwidth=4
 autocmd BufNewFile,BufRead *.ms set spell
 autocmd TermOpen * setlocal nonumber norelativenumber
 autocmd TermOpen * setlocal signcolumn=no"
-"}}}
-
-" listing{{{
-" adds "·" for space chars
-" eol:¬
-set lcs+=space:·
-set list
-"}}}
-
-" Toggle terminal <M-a>{{{
-let mapleader = "\<BS>"
-nmap <silent> <leader>a :below split term://zsh<return>i
-tmap <silent> <leader>a <C-\><C-n><C-w>q
-tmap <Esc> <C-\><C-n>
-"}}}
-
-" bindings {{{
-map <silent> <leader>rc :e $MYVIMRC<CR>
-map <silent> <c-s> :w<CR>
-" fzf
-map <silent> <leader>/ :Files<CR>
-" smooth scrolling
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
-"}}}
+" }}}
