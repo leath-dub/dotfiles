@@ -19,7 +19,6 @@ set wildignore=*.docx,*.jpg,*.png,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set backspace=indent,eol,start
 set encoding=UTF-8
 set showmode
-set scrolloff=0
 set mouse=a
 " set showmatch " shows matching bracket when closing them
 set linebreak
@@ -27,6 +26,8 @@ set fillchars+=eob:\
 set nocompatible
 " extra padding on right of numbers
 set signcolumn=yes
+set sidescroll=0
+set sidescrolloff=999
 " split on right
 set splitright
 
