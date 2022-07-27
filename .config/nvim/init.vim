@@ -50,8 +50,6 @@ if !empty(glob('~/.config/nvim/plugged'))
     Plug 'rust-lang/rust.vim'
     Plug 'ap/vim-css-color'
     Plug 'mattn/emmet-vim'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
     Plug 'fmoralesc/vim-tutor-mode'
     Plug 'terryma/vim-smooth-scroll'
 
@@ -87,12 +85,15 @@ hi IncSearch cterm=NONE ctermfg=red ctermbg=black
 " }}}
 
 " Keybinding {{{
-let mapleader = "\<BS>"
+" let mapleader = "\<BS>"
 
-if executable('zsh')
-    nmap <silent> <leader>a :below split term://zsh<return>i
-endif
-tmap <silent> <leader>a <C-\><C-n><C-w>q
+" if executable('zsh')
+"     nmap <silent> <leader>a :below split term://zsh<return>i
+" endif
+" tmap <silent> <leader>a <C-\><C-n><C-w>q
+" tmap <Esc> <C-\><C-n>
+nmap <silent> <C-k> :vert split term://zsh<CR>i
+tmap <silent> <C-k> <C-\><C-n><C-w>q
 tmap <Esc> <C-\><C-n>
 
 map <silent> <leader>rc :e $MYVIMRC<CR>

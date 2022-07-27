@@ -24,8 +24,11 @@
 .config/einstein/.eintsein/*
 !.config/einstein/.einstein/*
 
+!.config/nvim/
+.config/nvim/*
+!.config/nvim/init.vim
+
 !.config/neofetch/*
-!.config/nvim/*
 !.config/picom/*
 !.config/qutebrowser/*
 !.config/ranger/*

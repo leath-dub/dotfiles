@@ -3,12 +3,14 @@ autoload -U colors && colors
 
 # Load version control information
 autoload -Uz vcs_info
+
 # precmd() { vcs_info }
 precmd() {
     # stderr is produced "fatal: this operation must be run in a work tree"
     # this happens when "vcs_info" is run in .git dir. This can be ignored
     # safely
     vcs_info 2> /dev/null
+    build_prompt
 }
 
 # Format the vcs_info_msg_0_ variable
@@ -17,25 +19,82 @@ zstyle ':vcs_info:git:*' formats "%b %u %c"
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
 # func to print git info
-_git_prompt() {
-    if [[ $(echo ${vcs_info_msg_0_} | grep master | wc -l) -eq 1 ]]
+function _git_prompt() {
+    if [[ $(echo ${vcs_info_msg_0_}) ]]
     then
-        echo " Master"
+        echo " "$(printf $vcs_info_msg_0_ | tr -d ' ')
     else
         echo " No repo"
     fi
 }
 
-# Zsh prompt
-(( COLUMNS < 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}' 
-(( COLUMNS > 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}─"$'%{\e[36m%}[$(_git_prompt)]%{\e[0m%}'"%{$fg[red]%}─%{$fg[yellow]%}[%(5~|%-1~/…/%3~|%4~)]"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}'
-(( COLUMNS < 20 )) && PROMPT="%{$fg[red]%}❭ %B%F{51}"$'%{\e[0m%}'
-# Catching SIGWINCH signal and updating prompt
-TRAPWINCH() { 
-    (( COLUMNS < 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}' 
-    (( COLUMNS > 39 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}─"$'%{\e[36m%}[$(_git_prompt)]%{\e[0m%}'"%{$fg[red]%}─%{$fg[yellow]%}[%(5~|%-1~/…/%3~|%4~)]"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}$ %{\e[0m%}'
-    (( COLUMNS < 20 )) && PROMPT="%{$fg[red]%}❭ %B%F{51}"$'%{\e[0m%}'
+for COLOR in RED GREEN YELLOW BLUE MAGENTA CYAN BLACK WHITE; do
+    eval $COLOR='%{$fg_no_bold[${(L)COLOR}]%}'  #wrap colours between %{ %} to avoid weird gaps in autocomplete
+    eval BOLD_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
+done
+
+function build_prompt() {
+    # gets length of left side once printed to stdout
+    local PWDSIZE=${#${(%):-%(4~|%-1~/…/%3~|%~)}}
+    local BOX3='┌─[%n@%m]─[$(_git_prompt)]─[]'
+    local BOX2='┌─[%n@%m]─[$(_git_prompt)]'
+    local BOX1='┌─[%n@%m]'
+
+    TIME='%t'
+    TIME_LEN=$((${#${(S%%)TIME//$~ZER0/}} + 4))
+
+    ZERO='%([BSUbfksu]|([FK]|){*})'
+    BOX3_LEN=$((${#${(S%%)BOX3//$~ZER0/}} + PWDSIZE - 1 + TIME_LEN))
+    BOX2_LEN=$((${#${(S%%)BOX2//$~ZER0/}} - 1 + TIME_LEN))
+    BOX1_LEN=$((${#${(S%%)BOX1//$~ZER0/}} - 1 + TIME_LEN))
+
+    local BOX1=$'${BOLD_GREEN}[%n@%m]'
+    local BOX2=$'${CYAN}[$(_git_prompt)]'
+    local BOX3=$'${YELLOW}[%(4~|%-1~/…/%3~|%~)]'
+    if [[ $BOX3_LEN -lt $COLUMNS ]]; then
+        LEN=$BOX3_LEN
+        # LEN+=$TIME_LEN
+        # LEN+=2
+        local TOP=$'${RED}╭─'$BOX1$'${RED}─'$BOX2$'${RED}─'$BOX3
+        local BOTTOM=$'${RED}╰─╼ ${BOLD_CYAN}λ ${WHITE}'
+        RPROMPT='<%(?.${GREEN}.${RED})%?${WHITE}>'
+        PROMPT=$TOP'${WHITE}${(r:((COLUMNS - LEN))::═:)}'$'${MAGENTA}%t ${WHITE}═\n'$BOTTOM
+    elif [[ $BOX2_LEN -lt $COLUMNS ]]; then
+        LEN=$BOX2_LEN
+        # LEN+=$TIME_LEN
+        # LEN+=2
+        local TOP=$'${RED}╭─'$BOX1$'${RED}─'$BOX2
+        local BOTTOM=$'${RED}╰─╼ ${BOLD_CYAN}λ ${WHITE}'
+        RPROMPT='<%(?.${GREEN}.${RED})%?${WHITE}>'
+        PROMPT=$TOP'${WHITE}${(r:((COLUMNS - LEN))::═:)}'$'${MAGENTA}%t ${WHITE}═\n'$BOTTOM
+    elif [[ $BOX1_LEN -lt $COLUMNS ]]; then
+        LEN=$BOX1_LEN
+        # LEN+=$TIME_LEN
+        # LEN+=2
+        local TOP=$'${RED}╭─'$BOX1
+        local BOTTOM=$'${RED}╰─╼ ${BOLD_CYAN}λ ${WHITE}'
+        RPROMPT='<%(?.${GREEN}.${RED})%?${WHITE}>'
+        PROMPT=$TOP'${WHITE}${(r:((COLUMNS - LEN))::═:)}'$'${MAGENTA}%t ${WHITE}═\n'$BOTTOM
+    else
+        LEN=2
+        TOP='${CYAN}λ '
+        PROMPT=$TOP
+        RPROMPT=''
+    fi
 }
+TRAPWINCH() {
+    build_prompt
+}
+# # Zsh prompt
+# (( COLUMNS < 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}""${(l:COLUMNS:: :)$(exit_code)}"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}λ %{\e[0m%}'
+# (( COLUMNS > 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}─"$'%{\e[36m%}[$(_git_prompt)]%{\e[0m%}'"%{$fg[red]%}─%{$fg[yellow]%}[%(5~|%-1~/…/%3~|%4~)]""${(l:COLUMNS:: :)$(exit_code)}"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}λ %{\e[0m%}'
+# (( COLUMNS < 20 )) && PROMPT="%{$fg[red]%}λ %B%F{51}"$'%{\e[0m%}'"${(l:COLUMNS:: :)$(exit_code)}"
+# # Catching SIGWINCH signal and updating prompt
+# TRAPWINCH() {
+#     (( COLUMNS < 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}""${(l:COLUMNS:: :)$(exit_code)}"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}λ %{\e[0m%}'
+#     (( COLUMNS > 39 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}─"$'%{\e[36m%}[$(_git_prompt)]%{\e[0m%}'"%{$fg[red]%}─%{$fg[yellow]%}[%(5~|%-1~/…/%3~|%4~)]""${(l:COLUMNS:: :)$(exit_code)}"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}λ %{\e[0m%}'
+#     (( COLUMNS < 20 )) && PROMPT="%{$fg[red]%}λ %B%F{51}"$'%{\e[0m%}'"${(l:COLUMNS:: :)$(exit_code)}"
+# }
 # bash equivlant
 # export ps1="\e[0;31m┌──\e[1;32m[\u@\h]\e[0;31m─\e[0;36m[\d{%d %b} \a]\e[0;31m─\e[0;33m[\w]\n\e[0;31m└──╼ \e[1;36m\$\[$(tput sgr0)\] "
 
@@ -122,6 +181,10 @@ then
     echo -en "\e]PFdedede" #white
     clear #for background artifacting
 fi
+
+# fzf
+
+fzf -h > /dev/null && export FZF_DEFAULT_COMMAND='find .'
 
 # Syntax highlighting in less(man pages e.g.)
 export LESS_TERMCAP_mb=$'\e[1;32m'
