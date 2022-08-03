@@ -41,12 +41,13 @@ function build_prompt() {
     local BOX1='┌─[%n@%m]'
 
     TIME='%t'
+    TIME=$(print -P '%t' | tr -d " ")
     TIME_LEN=$((${#${(S%%)TIME//$~ZER0/}} + 4))
 
     ZERO='%([BSUbfksu]|([FK]|){*})'
-    BOX3_LEN=$((${#${(S%%)BOX3//$~ZER0/}} + PWDSIZE - 1 + TIME_LEN))
-    BOX2_LEN=$((${#${(S%%)BOX2//$~ZER0/}} - 1 + TIME_LEN))
-    BOX1_LEN=$((${#${(S%%)BOX1//$~ZER0/}} - 1 + TIME_LEN))
+    BOX3_LEN=$((${#${(S%%)BOX3//$~ZER0/}} + PWDSIZE + TIME_LEN))
+    BOX2_LEN=$((${#${(S%%)BOX2//$~ZER0/}} + TIME_LEN))
+    BOX1_LEN=$((${#${(S%%)BOX1//$~ZER0/}} + TIME_LEN))
 
     local BOX1=$'${BOLD_GREEN}[%n@%m]'
     local BOX2=$'${CYAN}[$(_git_prompt)]'
@@ -57,24 +58,27 @@ function build_prompt() {
         # LEN+=2
         local TOP=$'${RED}╭─'$BOX1$'${RED}─'$BOX2$'${RED}─'$BOX3
         local BOTTOM=$'${RED}╰─╼ ${BOLD_CYAN}λ ${WHITE}'
+        if ((TIME_LEN - 4 == 5));then pad=' ';fi
         RPROMPT='<%(?.${GREEN}.${RED})%?${WHITE}>'
-        PROMPT=$TOP'${WHITE}${(r:((COLUMNS - LEN))::═:)}'$'${MAGENTA}%t ${WHITE}═\n'$BOTTOM
+        PROMPT=$TOP'${WHITE}${(r:((COLUMNS - LEN))::═:)}'$'${MAGENTA}$pad%t ${WHITE}═\n'$BOTTOM
     elif [[ $BOX2_LEN -lt $COLUMNS ]]; then
         LEN=$BOX2_LEN
         # LEN+=$TIME_LEN
         # LEN+=2
         local TOP=$'${RED}╭─'$BOX1$'${RED}─'$BOX2
         local BOTTOM=$'${RED}╰─╼ ${BOLD_CYAN}λ ${WHITE}'
+        if ((TIME_LEN - 4 == 5));then pad=' ';fi
         RPROMPT='<%(?.${GREEN}.${RED})%?${WHITE}>'
-        PROMPT=$TOP'${WHITE}${(r:((COLUMNS - LEN))::═:)}'$'${MAGENTA}%t ${WHITE}═\n'$BOTTOM
+        PROMPT=$TOP'${WHITE}${(r:((COLUMNS - LEN))::═:)}'$'${MAGENTA}$pad%t ${WHITE}═\n'$BOTTOM
     elif [[ $BOX1_LEN -lt $COLUMNS ]]; then
         LEN=$BOX1_LEN
         # LEN+=$TIME_LEN
         # LEN+=2
         local TOP=$'${RED}╭─'$BOX1
         local BOTTOM=$'${RED}╰─╼ ${BOLD_CYAN}λ ${WHITE}'
+        if ((TIME_LEN - 4 == 5));then pad=' ';fi
         RPROMPT='<%(?.${GREEN}.${RED})%?${WHITE}>'
-        PROMPT=$TOP'${WHITE}${(r:((COLUMNS - LEN))::═:)}'$'${MAGENTA}%t ${WHITE}═\n'$BOTTOM
+        PROMPT=$TOP'${WHITE}${(r:((COLUMNS - LEN))::═:)}'$'${MAGENTA}$pad%t ${WHITE}═\n'$BOTTOM
     else
         LEN=2
         TOP='${CYAN}λ '
@@ -204,3 +208,5 @@ alias cdpy="cd $HOME/comsci/1/2_sem/modules/ca117/"
 alias cdco="cd $HOME/comsci/1/2_sem/modules/"
 alias nml="neomutt -F /home/cathal/.config/mutt/muttrc.leath"
 alias nm="neomutt -F /home/cathal/.config/mutt/muttrc"
+alias gr='cd ./$(git rev-parse --show-cdup 2> /dev/null)'
+alias ll="exa -lah --icons"
