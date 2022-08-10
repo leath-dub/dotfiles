@@ -52,11 +52,12 @@ function build_prompt() {
     local BOX1=$'${BOLD_GREEN}[%n@%m]'
     local BOX2=$'${CYAN}[$(_git_prompt)]'
     local BOX3=$'${YELLOW}[%(4~|%-1~/…/%3~|%~)]'
+    local DIV=$'─'
     if [[ $BOX3_LEN -lt $COLUMNS ]]; then
         LEN=$BOX3_LEN
         # LEN+=$TIME_LEN
         # LEN+=2
-        local TOP=$'${RED}╭─'$BOX1$'${RED}─'$BOX2$'${RED}─'$BOX3
+        local TOP=$'${RED}╭─'$BOX1$'${RED}'$DIV''$BOX2$'${RED}'$DIV''$BOX3
         local BOTTOM=$'${RED}╰─╼ ${BOLD_CYAN}λ ${WHITE}'
         if ((TIME_LEN - 4 == 5));then pad=' ';fi
         RPROMPT='<%(?.${GREEN}.${RED})%?${WHITE}>'
@@ -65,7 +66,7 @@ function build_prompt() {
         LEN=$BOX2_LEN
         # LEN+=$TIME_LEN
         # LEN+=2
-        local TOP=$'${RED}╭─'$BOX1$'${RED}─'$BOX2
+        local TOP=$'${RED}╭─'$BOX1$'${RED}'$DIV''$BOX2
         local BOTTOM=$'${RED}╰─╼ ${BOLD_CYAN}λ ${WHITE}'
         if ((TIME_LEN - 4 == 5));then pad=' ';fi
         RPROMPT='<%(?.${GREEN}.${RED})%?${WHITE}>'
@@ -86,8 +87,48 @@ function build_prompt() {
         RPROMPT=''
     fi
 }
+
+alt_build_prompt()
+{
+  # normal
+  #
+  # ⌠ (cathal@laptop) git:(master) (~) ├───────────────────────────────→ (2:16)
+  # ⌡ λ                                                                     (0)
+  #
+  # mini
+  # ∫
+
+  zero='%([BSUbfksu]|([FK]|){*})'
+
+  local pwdsize=${#${(%):-%(4~|%-1~/…/%3~|%~)}}
+  local threeb='  (%n@%m) git:($(_git_prompt)) ()'
+  local twob='  (%n@%m) git:($(_git_prompt))'
+  local oneb='  (%n@%m)'
+
+  local t='%t'
+  # local t=$(print -P '%t' | tr -d " ")
+  local tlen=$((${#${(S%%)t//$~zero/}} + 3))
+
+  threeb_len=$((${#${(S%%)threeb//$~zero/}} + pwdsize + tlen))
+  twob_len=$((${#${(S%%)twob//$~zero/}} + tlen))
+  oneb_len=$((${#${(S%%)oneb//$~zero/}} + tlen))
+
+  local oneb=$'%{\e[32m%}(%{\e[92m%}%n@%m%{\e[32m%})'
+  local twob=$'%{\e[35m%}git:(%{\e[95m%}$(_git_prompt)%{\e[35m%})'
+  local threeb=$'%{\e[33m%}(%{\e[93m%}%(4~|%-1~/…/%3~|%~)%{\e[33m%})'
+
+  if [[ $threeb_len -lt $COLUMNS ]]
+    then
+      len=$threeb_len
+      local top=$'%{\e[34m%}╭ '$oneb' '$twob' '$threeb
+      local bottom=$'%{\e[34m%}╰> '
+
+      RPROMPT=$'${WHITE}(%(?.%{\e[92m%}.%{\e[91m%})%?${WHITE})'
+      PROMPT=$top'${WHITE}${(r:((COLUMNS - len)):: :)}'$'${CYAN}%t${WHITE} |\n'$bottom
+    fi
+}
 TRAPWINCH() {
-    build_prompt
+  build_prompt
 }
 # # Zsh prompt
 # (( COLUMNS < 40 )) && PROMPT="%{$fg[red]%}┌─%B%F{51}%{$fg[green]%}[%n@%m]%f%b%{$fg[red]%}""${(l:COLUMNS:: :)$(exit_code)}"$'\n'"%{$fg[red]%}└─╼ %B%F{51}"$'%{\e[36m%}λ %{\e[0m%}'
@@ -198,6 +239,9 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+# Terminal emulator - st
+export TERM="st-256color"
 
 # Alias'
 alias b='backup_sh'

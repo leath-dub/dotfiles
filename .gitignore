@@ -26,7 +26,23 @@
 
 !.config/nvim/
 .config/nvim/*
-!.config/nvim/init.vim
+!.config/nvim/init.lua
+!.config/nvim/init-orig.vim
+!.config/nvim/lua/
+.config/nvim/lua/*
+!.config/nvim/lua/map/
+!.config/nvim/lua/plg/
+!.config/nvim/lua/set/
+!.config/nvim/lua/plg/
+.config/nvim/lua/map/*
+.config/nvim/lua/plg/*
+.config/nvim/lua/set/*
+.config/nvim/lua/plg/*
+!.config/nvim/lua/map/init.lua
+!.config/nvim/lua/plg/init.lua
+!.config/nvim/lua/set/init.lua
+!.config/nvim/lua/plg/init.lua
+
 
 !.config/neofetch/*
 !.config/picom/*

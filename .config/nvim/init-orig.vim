@@ -6,7 +6,6 @@ set smartindent
 set shiftwidth=4
 set tabstop=4
 set expandtab
-set scrolloff=10
 set incsearch
 set ignorecase
 set smartcase
@@ -93,7 +92,8 @@ hi IncSearch cterm=NONE ctermfg=red ctermbg=black
 " endif
 " tmap <silent> <leader>a <C-\><C-n><C-w>q
 " tmap <Esc> <C-\><C-n>
-nmap <silent> <C-k> :vert split term://zsh<CR>i
+" :lcd %:p:h <CR>
+nnoremap <silent> <C-k> :lcd %:p:h<CR>:vsplit term://zsh<CR>i
 tmap <silent> <C-k> <C-\><C-n><C-w>q
 tmap <Esc> <C-\><C-n>
 
