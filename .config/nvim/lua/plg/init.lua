@@ -26,6 +26,11 @@ return require('packer').startup(function(use)
       'gruvbox-community/gruvbox',
       setup = setTheme('gruvbox')
     }
+  use
+    {
+      'arcticicestudio/nord-vim',
+      setup = setTheme('nord')
+    }
   use 'rust-lang/rust.vim'
   use 'ap/vim-css-color'
   use 'mattn/emmet-vim'

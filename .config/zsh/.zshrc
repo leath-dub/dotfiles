@@ -254,3 +254,6 @@ alias nml="neomutt -F /home/cathal/.config/mutt/muttrc.leath"
 alias nm="neomutt -F /home/cathal/.config/mutt/muttrc"
 alias gr='cd ./$(git rev-parse --show-cdup 2> /dev/null)'
 alias ll="exa -lah --icons"
+
+# Config for sss (screenshots)
+export SS_DIR="/home/cathal/cap"

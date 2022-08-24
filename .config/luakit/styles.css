@@ -1,0 +1,292 @@
+@-moz-document url-prefix("https://loop.dcu.ie")
+{
+  :root
+    {
+      /* Polar Night */
+      --nord-pna: #2e3440;
+      --nord-pnb: #3b4252;
+      --nord-pnc: #434c5e;
+      --nord-pnd: #4c566a;
+
+      /* Snow Storm */
+      --nord-ssa: #d8dee9;
+      --nord-ssb: #e5e9f0;
+      --nord-ssc: #eceff4;
+
+      /* Frost */
+      --nord-fa: #8fbcbb;
+      --nord-fb: #88c0d0;
+      --nord-fc: #81a1c1;
+      --nord-fd: #5e81ac;
+
+      /* Aurora */
+      --nord-aa: #bf616a;
+      --nord-ab: #d08770;
+      --nord-ac: #ebcb8b;
+      --nord-ad: #a3be8c;
+      --nord-ae: #b48ead;
+    }
+
+  /* Background of main content section */
+  #page-my-index
+    {
+      background-color: var(--nord-pna) !important;
+    }
+  /* foreground of main contents header */
+  h1.mb-3
+    {
+      color: var(--nord-ssa) !important;
+    }
+
+  /* Button styling */
+  button.btn
+    {
+      background-color: var(--nord-fa) !important;
+      color: var(--nord-pnb) !important;
+      border: none !important;
+    }
+
+  #nav-drawer
+    {
+      background-color: var(--nord-fb) !important;
+      padding-left: 0px !important;
+    }
+  .navbar
+    {
+      background-color: var(--nord-fd) !important;
+      border-bottom: none !important;
+      box-shadow: none !important;
+    }
+
+  li.dropdown, li.nav-item > *
+    {
+      color: var(--nord-ssa) !important;
+    }
+
+  .userbutton > *
+    {
+      color: var(--nord-ssa) !important;
+    }
+  .More...
+    {
+      background-color: var(--nord-fa) !important;
+    }
+
+  i
+    {
+      color: var(--nord-ssa) !important;
+    }
+
+  input.search-input-form > input
+    {
+      border: none !important;
+      color: var(--nord-ssa) !important;
+      border: none !important;
+    }
+
+  .custom-header nav.navbar .drawer-toggle .fa-bars, .custom-header nav.navbar
+  .side-drawer-toggle .fa-bars, .custom-header nav.navbar .usermenu .fa-bars,
+  .custom-header nav.navbar .popover-region-toggle .fa-bars, .custom-header
+  nav.navbar .search-input-wrapper .fa-bars, .custom-header nav.navbar
+  .drawer-toggle>.fa-bell, .custom-header nav.navbar
+  .side-drawer-toggle>.fa-bell, .custom-header nav.navbar .usermenu>.fa-bell,
+  .custom-header nav.navbar .popover-region-toggle>.fa-bell, .custom-header
+  nav.navbar .search-input-wrapper>.fa-bell, .custom-header nav.navbar
+  .drawer-toggle>.icon-bubble, .custom-header nav.navbar
+  .side-drawer-toggle>.icon-bubble, .custom-header nav.navbar
+  .usermenu>.icon-bubble, .custom-header nav.navbar
+  .popover-region-toggle>.icon-bubble, .custom-header nav.navbar
+  .search-input-wrapper>.icon-bubble, .custom-header nav.navbar
+  .drawer-toggle>div>.icon, .custom-header nav.navbar
+  .side-drawer-toggle>div>.icon, .custom-header nav.navbar .usermenu>div>.icon,
+  .custom-header nav.navbar .popover-region-toggle>div>.icon, .custom-header
+  nav.navbar .search-input-wrapper>div>.icon, .custom-header nav.navbar
+  .drawer-toggle>form>input, .custom-header nav.navbar
+  .side-drawer-toggle>form>input, .custom-header nav.navbar
+  .usermenu>form>input, .custom-header nav.navbar
+  .popover-region-toggle>form>input, .custom-header nav.navbar
+  .search-input-wrapper>form>input, .custom-header nav.navbar .drawer-toggle
+  .userbutton .usertext, .custom-header nav.navbar .side-drawer-toggle
+  .userbutton .usertext, .custom-header nav.navbar .usermenu .userbutton
+  .usertext, .custom-header nav.navbar .popover-region-toggle .userbutton
+  .usertext, .custom-header nav.navbar .search-input-wrapper .userbutton
+  .usertext
+    {
+      border: none !important;
+      color: var(--nord-ssa) !important;
+    }
+  div.search-input-wrapper
+    {
+      border-left: 0 !important;
+      border-right: 0 !important;
+    }
+  .hamburger-left
+    {
+      border-left: 0 !important;
+      border-right: 0 !important;
+    }
+  span.logo
+    {
+      display: none !important;
+      width: 0px !important;
+    }
+  .drawer-toggle > button
+    {
+      background-color: var(--nord-fd) !important;
+    }
+  ::placeholder
+    {
+      display: none !important;
+    }
+  body
+    {
+      font-family: Iosevka !important;
+      font-size: 1rem !important;
+    }
+  ul.nav
+    {
+      height: 52px !important;
+    }
+  li.nav-item
+    {
+      /*height: 52px !important;*/
+      justify-content: center !important;
+      align-self: center !important;
+    }
+  li.nav-item > *
+    {
+      margin: 0.5rem !important;
+    }
+
+  i.icon-bubble, i.fa-bell
+    {
+      opacity: 0% !important;
+    }
+
+  a.popover-region-toggle
+    {
+      padding: 0 !important;
+    }
+
+  div.popover-region-notifications
+    {
+      height: 30px !important;
+      width: 30px !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Pro 6.1.2 by %40fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons  Inc. --%3E%3Cpath fill='%23eceff4' d='M256 32V51.2C329 66.03 384 130.6 384 208V226.8C384 273.9 401.3 319.2 432.5 354.4L439.9 362.7C448.3 372.2 450.4 385.6 445.2 397.1C440 408.6 428.6 416 416 416H32C19.4 416 7.971 408.6 2.809 397.1C-2.353 385.6-.2883 372.2 8.084 362.7L15.5 354.4C46.74 319.2 64 273.9 64 226.8V208C64 130.6 118.1 66.03 192 51.2V32C192 14.33 206.3 0 224 0C241.7 0 256 14.33 256 32H256zM224 512C207 512 190.7 505.3 178.7 493.3C166.7 481.3 160 464.1 160 448H288C288 464.1 281.3 481.3 269.3 493.3C257.3 505.3 240.1 512 224 512z'/%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+    }
+  div.popover-region-messages
+    {
+      height: 30px !important;
+      width: 30px !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.2 by %40fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons  Inc. --%3E%3Cpath fill='%23eceff4' d='M256 32C114.6 32 .0272 125.1 .0272 240c0 49.63 21.35 94.98 56.97 130.7c-12.5 50.37-54.27 95.27-54.77 95.77c-2.25 2.25-2.875 5.734-1.5 8.734C1.979 478.2 4.75 480 8 480c66.25 0 115.1-31.76 140.6-51.39C181.2 440.9 217.6 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32z'/%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+    }
+  #region-main
+    {
+      border-radius: 8px;
+      background-color: var(--nord-ssc) !important;
+    }
+  aside#block-region-content > *
+    {
+      background-color: var(--nord-ssc) !important;
+    }
+
+  div.no-overflow
+    {
+    }
+  div.no-overflow > p
+    {
+      display: box;
+      border-left: 4px solid var(--nord-ad);
+      padding-left: 0.5rem !important;
+      background-color: var(--nord-ssb);
+    }
+  *
+    {
+      text-transform: none !important;
+      font-family: Iosevka !important;
+    }
+  h2
+    {
+      color: var(--nord-pna) !important;
+      font-size: 1.5rem !important;
+    }
+  div.card
+    {
+      box-sizing: border-box !important;
+      box-shadow: rgba(184, 194, 215, 0.35) 0px 3px 6px 0px !important;
+      background-color: var(--nord-ssb) !important;
+    }
+  div.course-info-container
+    {
+      border: 0px solid !important;
+      border-image-width: 0 !important;
+      border-radius: 0px 0px 8px 8px !important;
+    }
+  section.card
+    {
+      border-radius: 8px !important;
+    }
+  .p-3
+    {
+      border-radius: 8px !important;
+    }
+  div[class="card-body p-3"]
+    {
+      background-color: var(--nord-ssc) !important;
+    }
+  div.card-img-top
+    {
+      border: 0px solid !important;
+      border-image-width: 0 !important;
+    }
+  .summary-icons
+    {
+      opacity: 0% !important;
+    }
+  .useralerts.alert-warning
+    {
+      background-color: var(--nord-ac) !important;
+      color: var(--nord-pna) !important;
+      border-radius: 0px 8px 8px 0px  !important;
+      border-left: 6px solid var(--nord-aa) !important;
+      margin-bottom: 0.6rem !important;
+    }
+  i.fa-times-circle
+    {
+      color: var(--nord-ssa) !important;
+    }
+  .list-group > li > a
+    {
+      padding-left: 12px !important;
+    }
+  ul.collapse
+    {
+      background-color: var(--nord-fc) !important;
+    }
+  .list-group-item:hover
+    {
+      background-color: var(--nord-fc) !important;
+    }
+  li[class="list-group-item list-group-item-action active font-weight-bold"], a[class="list-group-item list-group-item-action active font-weight-bold"]
+    {
+      background-color: var(--nord-fc) !important;
+    }
+  .list-group > li > a:hover
+    {
+      background-color: var(--nord-fc) !important;
+    }
+  li[class="list-group-item list-group-item-action active font-weight-bold More..."]
+    {
+      background-color: var(--nord-fc) !important;
+    }
+  footer
+    {
+      background-color: var(--nord-ssc) !important;
+    }
+  .dashboard-card
+    {
+      background-color: var(--nord-ssb) !important;
+    }
+}

@@ -11,3 +11,5 @@ fi
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec startx
 fi
+
+source /home/cathal/.nix-profile/etc/profile.d/nix.sh

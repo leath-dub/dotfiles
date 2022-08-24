@@ -50,3 +50,10 @@
 !.config/ranger/*
 !.config/stat/*
 !.config/zsh/*
+
+!.config/luakit/
+.config/luakit/*
+!.config/luakit/rc.lua
+!.config/luakit/styles.css
+!.config/luakit/theme.lua
+!.config/luakit/userconf.lua

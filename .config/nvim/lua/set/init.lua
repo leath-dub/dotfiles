@@ -8,6 +8,7 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.smartcase = true
 vim.opt.fileencoding = 'utf-8'
+vim.opt.foldmethod = 'marker'
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
